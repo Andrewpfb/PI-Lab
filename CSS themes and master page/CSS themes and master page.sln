@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.16
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSS themes and master page", "CSS themes and master page\CSS themes and master page.csproj", "{322E9413-1DE5-433E-9E43-56E7404B3CC4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{322E9413-1DE5-433E-9E43-56E7404B3CC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{322E9413-1DE5-433E-9E43-56E7404B3CC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{322E9413-1DE5-433E-9E43-56E7404B3CC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{322E9413-1DE5-433E-9E43-56E7404B3CC4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DFDDCC7A-BDA2-46D3-B936-192FCE6D8984}
+	EndGlobalSection
+EndGlobal

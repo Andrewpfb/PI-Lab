@@ -1,0 +1,14 @@
+﻿body {
+}
+
+
+.Button{
+    font-size: 25px;
+    color: red;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.Text{
+    color:blue;
+    font-size:30px;
+}
