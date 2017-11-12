@@ -77,6 +77,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="WebUserControl1.ascx" />
     <None Include="Connected Services\ServiceReference1\WebService1.disco" />
     <None Include="Connected Services\ServiceReference1\configuration91.svcinfo" />
     <None Include="Connected Services\ServiceReference1\configuration.svcinfo" />
