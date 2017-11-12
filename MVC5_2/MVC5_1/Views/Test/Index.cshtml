@@ -1,0 +1,196 @@
+﻿<div id="tableBlock"></div>
+<div id="editBlock">
+    <p><b>Edit User</b></p>
+    <table>
+        <tr><td><input type="hidden" id="editId" /></td><td></td></tr>
+        <tr><td><label>Firstname: </label></td><td><input type="text" id="editFirstname" /></td></tr>
+        <tr><td><label>Surname: </label></td><td><input type="text" id="editSurname" /></td></tr>
+        <tr><td><label>Middlename: </label></td><td><input type="text" id="editMiddlename" /></td></tr>
+        <tr><td><label>BDay: </label></td><td><input type="date" id="editBDay" /></td></tr>
+        <tr><td><label>Phone: </label></td><td><input type="text" id="editPhone" /></td></tr>
+    </table>
+    <button id="editUser">Save</button>
+</div>
+<div id="createBlock">
+    <p><b>Add user</b></p>
+    <table>
+        <tr><td><label>Firstname: </label></td><td><input type="text" id="addFirstname" /></td></tr>
+        <tr><td><label>Surname: </label></td><td><input type="text" id="addSurname" /></td></tr>
+        <tr><td><label>Middlename: </label></td><td><input type="text" id="addMiddlename" /></td></tr>
+        <tr><td><label>BDay: </label></td><td><input type="date" id="addBDay" /></td></tr>
+        <tr><td><label>Phone: </label></td><td><input type="text" id="addPhone" /></td></tr>
+    </table>
+    <button id="addUser">Save</button>
+</div>
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            GetUsers();
+
+            $("#editUser").click(function (event) {
+                event.preventDefault();
+                EditUser();
+            });
+
+            $("#addUser").click(function (event) {
+                event.preventDefault();
+                AddUser();
+            });
+
+        });
+        // Get all users by ajax-query.
+        function GetUsers() {
+
+            $("#createBlock").css('display', 'block');
+            $("#editBlock").css('display', 'none');
+            $.ajax({
+                url: '/api/PhoneWebApi',
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    WriteResponse(data);
+                },
+                error: function (x, y, z) {
+                    alert(x + '\n' + y + '\n' + z);
+                }
+            });
+        }
+        // Add new user.
+        function AddUser() {
+            // Get value for new user.
+            var user = {
+                Firstname: $('#addFirstname').val(),
+                Surname: $('#addSurname').val(),
+                Middlename: $('#addMiddlename').val(),
+                BDay: $('#addBDay').val(),
+                Phone: $('#addPhone').val()
+            };
+
+            $.ajax({
+                url: '/api/PhoneWebApi/',
+                type: 'POST',
+                data: JSON.stringify(user),
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    GetUsers();
+                },
+                error: function (x, y, z) {
+                    alert(x + '\n' + y + '\n' + z);
+                }
+            });
+        }
+        // Delete user
+        function DeleteUser(id) {
+
+            $.ajax({
+                url: '/api/PhoneWebApi/' + id,
+                type: 'DELETE',
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    GetUsers();
+                },
+                error: function (x, y, z) {
+                    alert(x + '\n' + y + '\n' + z);
+                }
+            });
+        }
+        // Edit User
+        function EditUser() {
+            var id = $('#editId').val()
+            // Get new data for user
+            var user = {
+                Id: $('#editId').val(),
+                Firstname: $('#editFirstname').val(),
+                Surname: $('#editSurname').val(),
+                Middlename: $('#editMiddlename').val(),
+                BDay: $('#editBDay').val(),
+                Phone: $('#editPhone').val()
+            };
+            $.ajax({
+                url: '/api/PhoneWebApi/' + id,
+                type: 'PUT',
+                data: JSON.stringify(user),
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    GetUsers();
+                },
+                error: function (x, y, z) {
+                    alert(x + '\n' + y + '\n' + z);
+                }
+            });
+        }
+        // Write data to window
+        function WriteResponse(users) {
+            var strResult = "<table><th>ID</th><th>Firstname</th><th>Surname</th><th>Middlename</th><th>BDay</th><th>Phone</th>";
+            $.each(users, function (index, user) {
+                var date = new Date(user.BDay);
+                strResult += "<tr><td>" + user.Id + "</td><td> " + user.Firstname + "</td><td>" +
+                    user.Surname + "</td><td>" + user.Middlename + "</td><td>" +
+                    formatDate(date) + "</td><td>" + user.Phone +
+                    "</td><td><a id='editItem' data-item='" + user.Id + "' onclick='EditItem(this);' >Edit</a></td>" +
+                    "<td><a id='delItem' data-item='" + user.Id + "' onclick='DeleteItem(this);' >Delete</a></td></tr>";
+            });
+            strResult += "</table>";
+            $("#tableBlock").html(strResult);
+        }
+
+        function formatDate(date) {
+
+            var dd = date.getDate();
+            if (dd < 10) dd = '0' + dd;
+
+            var mm = date.getMonth() + 1;
+            if (mm < 10) mm = '0' + mm;
+
+            var yy = date.getFullYear();
+            if (yy < 10) yy = '0' + yy;
+
+            return dd + '.' + mm + '.' + yy;
+        }
+
+        // Delete handler
+        function DeleteItem(el) {
+            // получаем id удаляемого объекта
+            var id = $(el).attr('data-item');
+            DeleteUser(id);
+        }
+        // Edit handler
+        function EditItem(el) {
+            // Get id editing object
+            var id = $(el).attr('data-item');
+            GetUser(id);
+        }
+        // Write user data in field
+        function ShowUser(user) {
+            if (user != null) {
+                $("#createBlock").css('display', 'none');
+                $("#editBlock").css('display', 'block');
+                $("#editId").val(user.Id);
+                $('#editFirstname').val(user.Firstname);
+                $('#editSurname').val(user.Surname);
+                $('#editMiddlename').val(user.Middlename);
+                $('#editBDay').val(user.BDay);
+                $('#editPhone').val(user.Phone);
+            }
+            else {
+                alert("User doesn't exist");
+            }
+        }
+        // Query user for edit
+        function GetUser(id) {
+            $.ajax({
+                url: '/api/PhoneWebApi/' + id,
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    ShowUser(data);
+                },
+                error: function (x, y, z) {
+                    alert(x + '\n' + y + '\n' + z);
+                }
+            });
+        }
+    </script>
+}
