@@ -1,0 +1,11 @@
+﻿@model IEnumerable<MVC5_3.Models.Video>
+
+@if (Model != null)
+{
+    foreach (var item in Model)
+    {
+        <div>
+            @Html.ActionLink(item.Title, "SetVideo", new { id = item.Id })        
+        </div>
+    }
+}

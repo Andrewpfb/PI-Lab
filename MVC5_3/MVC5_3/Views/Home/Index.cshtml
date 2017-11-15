@@ -1,0 +1,21 @@
+﻿@model IEnumerable<MVC5_3.Models.Video>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Home Page";
+}
+
+
+<div>
+    <table cellpadding="50">
+        <tr>
+            <td>
+                @Html.Action("VideoList")
+            </td>
+            <td>
+                @Html.Partial("VideoPlayer")
+            </td>
+        </tr>
+    </table>
+</div>
+

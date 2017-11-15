@@ -83,8 +83,9 @@ namespace MVC5_1.Controllers
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch(Exception e)
             {
+                ViewBag.ErrorMessage = e.Message;
                 return View();
             }
         }
@@ -117,8 +118,9 @@ namespace MVC5_1.Controllers
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception e)
             {
+                ViewBag.ErrorMessage = e.Message;
                 return View();
             }
         }

@@ -58,8 +58,13 @@
                 @Html.ActionLink("Delete", "Delete", new { id=item.Id })
             </td>
         </tr>
-    }
-    
+    } 
     </table>
+    <p>
+        @if(ViewBag.ErrorMessage!=null&ViewBag.ErrorMessage!=string.Empty)
+        {
+            <span>ViewBag.ErrorMessage</span>
+        }
+    </p>
 </body>
 </html>
