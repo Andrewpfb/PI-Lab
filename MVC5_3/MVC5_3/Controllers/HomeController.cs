@@ -8,26 +8,20 @@ namespace MVC5_3.Controllers
 {
     public class HomeController : Controller
     {
-        VideoContext db = new VideoContext();
+        static VideoContext db = new VideoContext();
         static Video selectedVideo = new Video();
 
-        /// <summary>
-        /// Сохраняет выбранное видео.
-        /// </summary>
-        /// <param name="id">Необязаельный параметр. Если id является null, то видео не выбрано.</param>
-        /// <returns></returns>
-        public ActionResult SetVideo(int? id)
+        public ActionResult Index(int? id)
         {
+            selectedVideo = null;
             if (id != null & id != 0)
             {
                 selectedVideo = db.Videos.Find(id);
             }
-            return RedirectToAction("Index");
-        }
-
-        public ActionResult Index()
-        {
-            GetVideo();
+            else
+            {
+                selectedVideo = db.Videos.Find(1);
+            }
             return View();
         }
 
@@ -59,6 +53,7 @@ namespace MVC5_3.Controllers
                     db.SaveChanges();
                     string fileName = Path.GetFileName(upload.FileName);
                 upload.SaveAs(Server.MapPath("~/Videos/" + tmp.Id + "_" + fileName));
+                selectedVideo = db.Videos.Find(tmp.Id);
                 }
             return RedirectToAction("Index");
         }
@@ -70,7 +65,7 @@ namespace MVC5_3.Controllers
         {
             if (selectedVideo.Id == 0)
             {
-                return null;
+                selectedVideo = db.Videos.Find(5);
             }
             return new FileStreamResult(
                 new FileStream

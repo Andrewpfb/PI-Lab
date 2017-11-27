@@ -1,11 +1,16 @@
 ﻿@model IEnumerable<MVC5_3.Models.Video>
 
-@if (Model != null)
-{
-    foreach (var item in Model)
+<div>
+    <span>Video lists:</span>
+
+    @if (Model != null)
     {
-        <div>
-            @Html.ActionLink(item.Title, "SetVideo", new { id = item.Id })        
-        </div>
+        foreach (var item in Model)
+        {
+            <div>
+                @Html.ActionLink(item.Title, "Index", new { id = item.Id })
+            </div>
+        }
     }
-}
+</div>
+@*@Html.ActionLink(item.Title, "SetVideo", new { id = item.Id })*@

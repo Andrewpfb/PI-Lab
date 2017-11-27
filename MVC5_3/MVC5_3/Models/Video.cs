@@ -10,7 +10,7 @@ namespace MVC5_3.Models
         [NotMapped]
         public FileStream Filestream { get; private set; }
 
-        public Video() { }
+        public Video(){}
         public Video(string name)
         {
             Title = name;

@@ -8,14 +8,30 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
-<body>
-    <div style="position:absolute; top:50px; left:50px">
-        @Html.ActionLink("Upload", "Upload")
+<body style="background-color:gray">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("VideoHosting", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Загрузить","Upload", "Home")</li>
+                </ul>
+            </div>
+        </div>
     </div>
     <div class="container body-content" style="position:relative">
         @RenderBody()
         <hr />
-        <footer>
+    </div>
+    <div>
+        <footer style="background-color:#333333">
             <p>&copy; @DateTime.Now.Year – приложение ASP.NET</p>
         </footer>
     </div>
